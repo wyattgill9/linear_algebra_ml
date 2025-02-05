@@ -67,3 +67,13 @@ pub fn transpose(matrix: &Matrix) -> Matrix {
     }
     result
 }
+
+pub fn scalar_mul(matrix: &Matrix, scalar: f64) -> Matrix {
+    let mut result = Matrix::zeros(matrix.rows, matrix.cols);
+    for i in 0..matrix.rows {
+        for j in 0..matrix.cols {
+            result.set(i, j, matrix.get(i, j) * scalar);
+        }
+    }
+    result
+}

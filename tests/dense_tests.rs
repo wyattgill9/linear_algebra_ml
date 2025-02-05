@@ -181,3 +181,20 @@ fn test_matrix_transpose() {
 
     assert_eq!(result, expected);
 }
+
+#[test]
+fn test_matrix_scalar_mul() {
+    let a = Matrix::new(2, 3, vec![
+        1.0, 2.0, 3.0,  
+        4.0, 5.0, 6.0   
+    ]);
+
+    let result = ops::scalar_mul(&a, 2.0);
+
+    let expected = Matrix::new(2, 3, vec![
+        2.0, 4.0, 6.0,  
+        8.0, 10.0, 12.0   
+    ]);
+
+    assert_eq!(result, expected);
+}
