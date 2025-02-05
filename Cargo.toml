@@ -4,3 +4,19 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+
+
+[dev-dependencies]
+criterion = "0.5.0"
+
+[profile.release]
+lto = true
+opt-level = 3
+
+[[bench]]
+name = "dense_bench"
+harness = false
+
+[[bench]]
+name = "sparse_bench"
+harness = false
