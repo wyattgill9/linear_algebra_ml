@@ -120,3 +120,5 @@ fn test_sparse_matrix_scalar_mul() {
     assert_eq!(result.get(1, 1), 4.0);
     assert_eq!(result.get(2, 2), 6.0);
 }
+
+
