@@ -16,7 +16,7 @@ A Rust library for high-performance linear algebra operations, optimized for mac
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/linear-algebra-ml.git
+   git clone https://github.com/wyattgill9/linear-algebra-ml.git
    cd linear-algebra-ml
    ```
 2. Build the project:
