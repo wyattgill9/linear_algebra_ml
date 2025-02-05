@@ -16,7 +16,3 @@ opt-level = 3
 [[bench]]
 name = "dense_bench"
 harness = false
-
-[[bench]]
-name = "sparse_bench"
-harness = false
