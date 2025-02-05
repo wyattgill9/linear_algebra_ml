@@ -100,14 +100,15 @@ fn test_sparse_matrix_transpose() {
     let a_data = vec![(0, 0, 1.0), (1, 1, 2.0), (2, 2, 3.0)];
     let a = SparseMatrix::new(3, 3, a_data.clone());
     let result = ops::transpose(&a);
+
     assert_eq!(result.get(0, 0), 1.0);
-    assert_eq!(result.get(0, 1), 2.0);
-    assert_eq!(result.get(0, 2), 3.0);
-    assert_eq!(result.get(1, 0), 1.0);
+    assert_eq!(result.get(0, 1), 0.0);
+    assert_eq!(result.get(0, 2), 0.0);
+    assert_eq!(result.get(1, 0), 0.0);
     assert_eq!(result.get(1, 1), 2.0);
-    assert_eq!(result.get(1, 2), 3.0);
-    assert_eq!(result.get(2, 0), 1.0);
-    assert_eq!(result.get(2, 1), 2.0);
+    assert_eq!(result.get(1, 2), 0.0);
+    assert_eq!(result.get(2, 0), 0.0);
+    assert_eq!(result.get(2, 1), 0.0);
     assert_eq!(result.get(2, 2), 3.0);
 }
 
@@ -120,5 +121,3 @@ fn test_sparse_matrix_scalar_mul() {
     assert_eq!(result.get(1, 1), 4.0);
     assert_eq!(result.get(2, 2), 6.0);
 }
-
-
