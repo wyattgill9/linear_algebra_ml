@@ -1,2 +1,2 @@
-use crate::sparse::matrix::SparseMatrix;
+use crate::matrix::matrix::Matrix;
 use crate::utils::error::Error;
