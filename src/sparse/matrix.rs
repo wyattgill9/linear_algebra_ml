@@ -1,5 +1,6 @@
 use std::fmt;
 
+#[derive(Debug, Clone, PartialEq)]
 pub struct SparseMatrix {
     pub rows: usize,
     pub cols: usize,

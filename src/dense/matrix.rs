@@ -1,8 +1,10 @@
+use std::fmt;
+
 #[derive(Debug, Clone, PartialEq)]
 pub struct Matrix {
     pub rows: usize,
     pub cols: usize,
-    pub data: Vec<f64>,
+    pub data: Vec<f64>
 }
 
 impl Matrix {
@@ -36,5 +38,17 @@ impl Matrix {
 
     pub fn set(&mut self, row: usize, col: usize, value: f64) {
         self.data[row * self.cols + col] = value;
+    }
+}
+
+impl fmt::Display for Matrix {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        for i in 0..self.rows {
+            for j in 0..self.cols {
+                write!(f, "{} ", self.data[i * self.cols + j])?;
+            }
+            write!(f, "\n")?;
+        }
+        Ok(())
     }
 }

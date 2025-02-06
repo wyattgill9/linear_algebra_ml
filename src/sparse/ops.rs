@@ -76,3 +76,4 @@ pub fn scalar_mul(matrix: &SparseMatrix, scalar: f64) -> SparseMatrix {
     }
     result
 }
+
