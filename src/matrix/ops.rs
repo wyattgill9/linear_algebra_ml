@@ -92,13 +92,13 @@ pub fn determinant(matrix: &Matrix) -> f64 {
     if matrix.rows != matrix.cols {
         panic!("Matrix must be square");
     }
-    
+
     let n = matrix.rows;
-    
+
     if n == 1 {
         return matrix.get(0, 0);
     }
-    
+
     if n == 2 {
         return matrix.get(0, 0) * matrix.get(1, 1) - matrix.get(0, 1) * matrix.get(1, 0);
     }
@@ -117,7 +117,7 @@ pub fn eigenvalues(matrix: &Matrix) -> Vec<f64> {
     if matrix.rows != matrix.cols {
         panic!("Matrix must be square");
     }
-    
+
     if matrix.rows == 2 {
         let a = matrix.get(0, 0);
         let b = matrix.get(0, 1);
@@ -138,6 +138,6 @@ pub fn eigenvalues(matrix: &Matrix) -> Vec<f64> {
             panic!("Complex eigenvalues not supported");
         }
     }
-    
+
     unimplemented!("Eigenvalue calculation for n > 2 is not implemented");
 }

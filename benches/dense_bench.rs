@@ -1,7 +1,7 @@
 use criterion::{criterion_group, criterion_main, Criterion};
 
-use linear_algebra_ml::dense::matrix::Matrix;
-use linear_algebra_ml::dense::ops;
+use linear_algebra_ml::matrix::matrix::Matrix;
+use linear_algebra_ml::matrix::ops;
 
 fn bench_mul(c: &mut Criterion) {
     let a = Matrix::new(100, 100, vec![1.0; 100 * 100]);

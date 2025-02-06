@@ -4,7 +4,7 @@ use std::fmt;
 pub struct Matrix {
     pub rows: usize,
     pub cols: usize,
-    pub data: Vec<f64>
+    pub data: Vec<f64>,
 }
 
 impl Matrix {

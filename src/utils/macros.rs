@@ -27,5 +27,3 @@ macro_rules! Matrix {
         }
     };
 }
-
-

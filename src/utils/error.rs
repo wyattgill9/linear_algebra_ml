@@ -15,7 +15,6 @@ impl fmt::Display for Error {
             ),
         }
     }
-
 }
 
 impl StdError for Error {}
