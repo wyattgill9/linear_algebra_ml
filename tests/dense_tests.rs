@@ -198,3 +198,44 @@ fn test_matrix_scalar_mul() {
 
     assert_eq!(result, expected);
 }
+
+#[test]
+fn test_matrix_power() {
+    let a = Matrix::new(2, 3, vec![
+        1.0, 2.0, 3.0,  
+        4.0, 5.0, 6.0   
+    ]);
+
+    let result = ops::power(&a, 2.0);
+
+    let expected = Matrix::new(2, 3, vec![
+        1.0, 4.0, 9.0,  
+        16.0, 25.0, 36.0   
+    ]);
+
+    assert_eq!(result, expected);
+}
+
+#[test]
+fn test_matrix_determinant() {
+    let a = Matrix::new(2, 2, vec![
+        1.0, 2.0,  
+        3.0, 4.0   
+    ]);
+
+    let result = ops::determinant(&a);
+
+    assert_eq!(result, -2.0);
+}
+
+#[test]
+fn test_matrix_eigenvalues() {
+    let a = Matrix::new(2, 2, vec![
+        1.0, 2.0,  
+        3.0, 4.0   
+    ]);
+
+    let result = ops::eigenvalues(&a);
+
+    assert_eq!(result, vec![5.372281323269014, -0.3722813232690143]);
+}

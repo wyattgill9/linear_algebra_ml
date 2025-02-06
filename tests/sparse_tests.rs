@@ -121,3 +121,13 @@ fn test_sparse_matrix_scalar_mul() {
     assert_eq!(result.get(1, 1), 4.0);
     assert_eq!(result.get(2, 2), 6.0);
 }
+
+#[test]
+pub fn test_sparse_matrix_power() {
+    let a_data = vec![(0, 0, 1.0), (1, 1, 2.0), (2, 2, 3.0)];
+    let a = SparseMatrix::new(3, 3, a_data.clone());
+    let result = ops::power(&a, 2.0);
+    assert_eq!(result.get(0, 0), 1.0);
+    assert_eq!(result.get(1, 1), 4.0);
+    assert_eq!(result.get(2, 2), 9.0);
+}

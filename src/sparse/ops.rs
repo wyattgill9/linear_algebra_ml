@@ -77,3 +77,12 @@ pub fn scalar_mul(matrix: &SparseMatrix, scalar: f64) -> SparseMatrix {
     result
 }
 
+pub fn power(matrix: &SparseMatrix, scalar: f64) -> SparseMatrix {
+    let mut result = SparseMatrix::zeros(matrix.rows, matrix.cols);
+    for i in 0..matrix.rows {
+        for j in 0..matrix.cols {
+            result.set(i, j, matrix.get(i, j).powf(scalar));
+        }
+    }
+    result
+}

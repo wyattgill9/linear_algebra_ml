@@ -39,6 +39,22 @@ impl Matrix {
     pub fn set(&mut self, row: usize, col: usize, value: f64) {
         self.data[row * self.cols + col] = value;
     }
+
+    pub fn minor(&self, row: usize, col: usize) -> Matrix {
+        let mut data = Vec::new();
+        for r in 0..self.rows {
+            if r == row {
+                continue;
+            }
+            for c in 0..self.cols {
+                if c == col {
+                    continue;
+                }
+                data.push(self.get(r, c));
+            }
+        }
+        Matrix::new(self.rows - 1, self.cols - 1, data)
+    }
 }
 
 impl fmt::Display for Matrix {
