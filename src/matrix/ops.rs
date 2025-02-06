@@ -77,3 +77,67 @@ pub fn scalar_mul(matrix: &Matrix, scalar: f64) -> Matrix {
     }
     result
 }
+
+pub fn power(matrix: &Matrix, scalar: f64) -> Matrix {
+    let mut result = Matrix::zeros(matrix.rows, matrix.cols);
+    for i in 0..matrix.rows {
+        for j in 0..matrix.cols {
+            result.set(i, j, matrix.get(i, j).powf(scalar));
+        }
+    }
+    result
+}
+
+pub fn determinant(matrix: &Matrix) -> f64 {
+    if matrix.rows != matrix.cols {
+        panic!("Matrix must be square");
+    }
+    
+    let n = matrix.rows;
+    
+    if n == 1 {
+        return matrix.get(0, 0);
+    }
+    
+    if n == 2 {
+        return matrix.get(0, 0) * matrix.get(1, 1) - matrix.get(0, 1) * matrix.get(1, 0);
+    }
+
+    let mut det = 0.0;
+    for col in 0..n {
+        let submatrix = matrix.minor(0, col);
+        let sign = if col % 2 == 0 { 1.0 } else { -1.0 };
+        det += sign * matrix.get(0, col) * determinant(&submatrix);
+    }
+
+    det
+}
+
+pub fn eigenvalues(matrix: &Matrix) -> Vec<f64> {
+    if matrix.rows != matrix.cols {
+        panic!("Matrix must be square");
+    }
+    
+    if matrix.rows == 2 {
+        let a = matrix.get(0, 0);
+        let b = matrix.get(0, 1);
+        let c = matrix.get(1, 0);
+        let d = matrix.get(1, 1);
+
+        let trace = a + d; // diagnal sum (2x2 only)
+        let determinant = determinant(matrix);
+        let discriminant = trace * trace - 4.0 * determinant;
+
+        if discriminant >= 0.0 {
+            let sqrt_discriminant = discriminant.sqrt();
+            return vec![
+                (trace + sqrt_discriminant) / 2.0,
+                (trace - sqrt_discriminant) / 2.0,
+            ];
+        } else {
+            panic!("Complex eigenvalues not supported");
+        }
+    }
+    
+    unimplemented!("Eigenvalue calculation for n > 2 is not implemented");
+}
