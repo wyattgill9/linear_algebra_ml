@@ -4,6 +4,7 @@ use std::fmt;
 #[derive(Debug)]
 pub enum Error {
     MatrixSizeMismatch,
+    MatrixNotSquare,
 }
 
 impl fmt::Display for Error {
@@ -13,6 +14,7 @@ impl fmt::Display for Error {
                 f,
                 "Matrix size mismatch: matrices must have the same dimensions"
             ),
+            Error::MatrixNotSquare => write!(f, "Matrix is not square"),
         }
     }
 }
