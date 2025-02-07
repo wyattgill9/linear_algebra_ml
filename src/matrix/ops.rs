@@ -141,7 +141,10 @@ pub fn eigenvalues(matrix: &Matrix) -> Vec<f64> {
 }
 
 pub fn inv(matrix: &Matrix) -> Option<Matrix> {
-    assert_eq!(matrix.rows, matrix.cols, "Matrix must be square to compute inverse");
+    assert_eq!(
+        matrix.rows, matrix.cols,
+        "Matrix must be square to compute inverse"
+    );
 
     let n = matrix.rows;
     let mut augmented = Matrix {
@@ -163,7 +166,9 @@ pub fn inv(matrix: &Matrix) -> Option<Matrix> {
         // find pivot row
         let mut pivot_row = i;
         for j in i + 1..n {
-            if augmented.data[j * augmented.cols + i].abs() > augmented.data[pivot_row * augmented.cols + i].abs() {
+            if augmented.data[j * augmented.cols + i].abs()
+                > augmented.data[pivot_row * augmented.cols + i].abs()
+            {
                 pivot_row = j;
             }
         }
@@ -171,7 +176,9 @@ pub fn inv(matrix: &Matrix) -> Option<Matrix> {
         // swap rows if necessary
         if pivot_row != i {
             for j in 0..2 * n {
-                augmented.data.swap(i * augmented.cols + j, pivot_row * augmented.cols + j);
+                augmented
+                    .data
+                    .swap(i * augmented.cols + j, pivot_row * augmented.cols + j);
             }
         }
 
@@ -186,12 +193,13 @@ pub fn inv(matrix: &Matrix) -> Option<Matrix> {
             augmented.data[i * augmented.cols + j] /= pivot;
         }
 
-        // eliminate all others 
+        // eliminate all others
         for k in 0..n {
             if k != i {
                 let factor = augmented.data[k * augmented.cols + i];
                 for j in 0..2 * n {
-                    augmented.data[k * augmented.cols + j] -= factor * augmented.data[i * augmented.cols + j];
+                    augmented.data[k * augmented.cols + j] -=
+                        factor * augmented.data[i * augmented.cols + j];
                 }
             }
         }
@@ -202,7 +210,8 @@ pub fn inv(matrix: &Matrix) -> Option<Matrix> {
     for i in 0..n {
         for j in 0..n {
             // round to 6 decimal places
-            inverse_data[i * n + j] = (augmented.data[i * augmented.cols + (j + n)] * 1e6).round() / 1e6;
+            inverse_data[i * n + j] =
+                (augmented.data[i * augmented.cols + (j + n)] * 1e6).round() / 1e6;
         }
     }
 
