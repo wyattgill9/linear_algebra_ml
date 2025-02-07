@@ -2,6 +2,7 @@
 
 use linear_algebra_ml::matrix::matrix::Matrix;
 use linear_algebra_ml::matrix::ops;
+use linear_algebra_ml::matrix::decompositions;
 
 
 #[test]
@@ -217,6 +218,24 @@ fn test_matrix_power() {
 }
 
 #[test]
+fn test_matrix_inv() {
+    let a = Matrix::new(2, 2, vec![
+        1.0, 2.0,  
+        3.0, 4.0   
+    ]);
+
+    let result = ops::inv(&a).unwrap();
+
+    let expected = Matrix::new(2, 2, vec![
+        -2.0, 1.0,  
+        1.5, -0.5   
+    ]);
+
+    assert_eq!(result, expected);
+}
+
+
+#[test]
 fn test_matrix_eigenvalues() {
     let a = Matrix::new(2, 2, vec![
         1.0, 2.0,  
@@ -239,3 +258,20 @@ fn test_matrix_det() {
 
     assert_eq!(result, -2.0);
 }
+
+// #[test] todo();
+// fn test_matrix_inv() {
+//     let a = Matrix::new(2, 2, vec![
+//         1.0, 2.0,  
+//         3.0, 4.0   
+//     ]);
+
+//     let result = ops::inverse(&a).unwrap();
+
+//     let expected = Matrix::new(2, 2, vec![
+//         -2.0, 1.0,  
+//         1.5, -0.5   
+//     ]);
+
+//     assert_eq!(result, expected);
+// }

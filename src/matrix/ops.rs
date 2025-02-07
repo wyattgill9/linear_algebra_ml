@@ -120,11 +120,9 @@ pub fn eigenvalues(matrix: &Matrix) -> Vec<f64> {
 
     if matrix.rows == 2 {
         let a = matrix.get(0, 0);
-        let b = matrix.get(0, 1);
-        let c = matrix.get(1, 0);
         let d = matrix.get(1, 1);
 
-        let trace = a + d; // diagnal sum (2x2 only)
+        let trace = a + d; // diagnal sum 2x2 only
         let determinant = determinant(matrix);
         let discriminant = trace * trace - 4.0 * determinant;
 
@@ -140,4 +138,77 @@ pub fn eigenvalues(matrix: &Matrix) -> Vec<f64> {
     }
 
     unimplemented!("Eigenvalue calculation for n > 2 is not implemented");
+}
+
+pub fn inv(matrix: &Matrix) -> Option<Matrix> {
+    assert_eq!(matrix.rows, matrix.cols, "Matrix must be square to compute inverse");
+
+    let n = matrix.rows;
+    let mut augmented = Matrix {
+        rows: n,
+        cols: 2 * n,
+        data: vec![0.0; n * 2 * n],
+    };
+
+    // init augmented matrix [A | I]
+    for i in 0..n {
+        for j in 0..n {
+            augmented.data[i * augmented.cols + j] = matrix.data[i * matrix.cols + j];
+        }
+        augmented.data[i * augmented.cols + (i + n)] = 1.0; // identity matrix here bc using the function was a wast of space!
+    }
+
+    // Gauss-Jordan elim
+    for i in 0..n {
+        // find pivot row
+        let mut pivot_row = i;
+        for j in i + 1..n {
+            if augmented.data[j * augmented.cols + i].abs() > augmented.data[pivot_row * augmented.cols + i].abs() {
+                pivot_row = j;
+            }
+        }
+
+        // swap rows if necessary
+        if pivot_row != i {
+            for j in 0..2 * n {
+                augmented.data.swap(i * augmented.cols + j, pivot_row * augmented.cols + j);
+            }
+        }
+
+        // check for singular matrix
+        if augmented.data[i * augmented.cols + i] == 0.0 {
+            return None; // matrix is singular, no inverse exists
+        }
+
+        // normalize pivot row
+        let pivot = augmented.data[i * augmented.cols + i];
+        for j in 0..2 * n {
+            augmented.data[i * augmented.cols + j] /= pivot;
+        }
+
+        // eliminate all others 
+        for k in 0..n {
+            if k != i {
+                let factor = augmented.data[k * augmented.cols + i];
+                for j in 0..2 * n {
+                    augmented.data[k * augmented.cols + j] -= factor * augmented.data[i * augmented.cols + j];
+                }
+            }
+        }
+    }
+
+    // extract inverse matrix from the aug matrix
+    let mut inverse_data = vec![0.0; n * n];
+    for i in 0..n {
+        for j in 0..n {
+            // round to 6 decimal places
+            inverse_data[i * n + j] = (augmented.data[i * augmented.cols + (j + n)] * 1e6).round() / 1e6;
+        }
+    }
+
+    Some(Matrix {
+        rows: n,
+        cols: n,
+        data: inverse_data,
+    })
 }
