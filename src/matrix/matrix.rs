@@ -1,4 +1,5 @@
 use std::fmt;
+use crate::vector::vector::Vector;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Matrix {
@@ -56,6 +57,13 @@ impl Matrix {
         Matrix::new(self.rows - 1, self.cols - 1, data)
     }
 }
+
+impl From<Matrix> for Vector {
+    fn from(matrix: Matrix) -> Self {
+        Vector { data: matrix.data }
+    }
+}
+
 
 impl fmt::Display for Matrix {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {

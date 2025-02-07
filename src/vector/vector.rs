@@ -1,3 +1,5 @@
+use crate::matrix::matrix::Matrix;
+
 #[derive(Debug, Clone, PartialEq)]
 pub struct Vector {
     pub data: Vec<f64>,
@@ -17,6 +19,17 @@ impl Vector {
     }
     pub fn set(&mut self, index: usize, value: f64) {
         self.data[index] = value;
+    }
+}
+
+impl From<Vector> for Matrix {
+    fn from(vector: Vector) -> Self {
+        let rows = vector.data.len();
+        Matrix {
+            data: vector.data,
+            rows,
+            cols: 1,
+        }
     }
 }
 
