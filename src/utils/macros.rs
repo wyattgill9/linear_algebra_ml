@@ -1,7 +1,5 @@
 use crate::matrix::matrix::Matrix;
 use crate::matrix::*;
-use crate::vector::vector::Vector;
-use crate::vector::*;
 
 // converts a input : sparse matrix to a dense matrix
 #[macro_export]
@@ -26,15 +24,6 @@ macro_rules! Matrix {
     ($rows:expr, $cols:expr, [$($row:expr),*]) => {
         {
             Matrix::new($rows, $cols, vec![$($row),*])
-        }
-    };
-}
-
-#[macro_export]
-macro_rules! Vector {
-    ($($row:expr),*) => {
-        {
-            Vector::new(vec![$($row),*])
         }
     };
 }

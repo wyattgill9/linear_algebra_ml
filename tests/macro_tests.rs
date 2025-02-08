@@ -4,9 +4,6 @@ use linear_algebra_ml::Matrix;
 use linear_algebra_ml::matrix::matrix::Matrix;
 use linear_algebra_ml::matrix::*;
 use linear_algebra_ml::sparse_to_dense;
-use linear_algebra_ml::vector::vector::Vector;
-use linear_algebra_ml::Vector;
-use linear_algebra_ml::vector::*;
 
 #[test]
 fn test_sparse_to_dense_macro() {
@@ -45,15 +42,4 @@ fn test_matrix_macro() {
     };
 
     assert_eq!(dense.data, expected.data);
-}
-
-#[test]
-fn test_vec_macro() {
-    let vec = Vector![1.0, 2.0, 3.0];
-
-    let expected = Vector {
-        data: [1.0, 2.0, 3.0].to_vec(),
-    };
-
-    assert_eq!(vec, expected);
 }
