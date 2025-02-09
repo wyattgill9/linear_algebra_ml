@@ -1,2 +1,3 @@
-/target
-guide.txt
+**/target
+**Cargo.lock
+Cargo.lock
