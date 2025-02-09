@@ -2,7 +2,7 @@
 
 use linear_algebra_ml::matrix::matrix::Matrix;
 use linear_algebra_ml::matrix::decompositions;
-use linear_algebra_ml::{Sparse, Dense, Vector};
+use linear_algebra_ml::Dense;
 use linear_algebra_ml::matrix::ops;
 
 fn main() {

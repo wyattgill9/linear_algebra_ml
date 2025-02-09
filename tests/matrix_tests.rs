@@ -2,7 +2,6 @@
 
 use linear_algebra_ml::matrix::matrix::Matrix;
 use linear_algebra_ml::matrix::ops;
-use linear_algebra_ml::matrix::decompositions;
 
 
 #[test]

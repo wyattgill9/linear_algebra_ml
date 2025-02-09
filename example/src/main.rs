@@ -1,6 +1,5 @@
-use linear_algebra_ml::{Dense, Sparse, Vector};
+use linear_algebra_ml::Vector;
 use linear_algebra_ml::matrix::{matrix::Matrix, ops::{scalar_mul, add, sub, mul, transpose}};
-use std::f64::consts::E;
 
 fn sigmoid(x: f64) -> f64 {
     1.0 / (1.0 + (-x).exp())
