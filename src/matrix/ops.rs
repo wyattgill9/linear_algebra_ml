@@ -221,3 +221,73 @@ pub fn inv(matrix: &Matrix) -> Option<Matrix> {
         data: inverse_data,
     })
 }
+
+/*
+VECTOR OPS
+*/
+
+pub fn dot(a: &Matrix, b: &Matrix) -> f64 {
+    assert!(
+        (a.rows == 1 || a.cols == 1) && (b.rows == 1 || b.cols == 1),
+        "Dot product requires 1xN or Nx1 vectors"
+    );
+    assert_eq!(a.rows * a.cols, b.rows * b.cols, "Vector sizes must match");
+
+    a.data.iter().zip(&b.data).map(|(x, y)| x * y).sum()
+}
+
+pub fn magnitude(vec: &Matrix) -> f64 {
+    assert!(
+        vec.rows == 1 || vec.cols == 1,
+        "Magnitude requires a vector"
+    );
+
+    vec.data.iter().map(|x| x * x).sum::<f64>().sqrt()
+}
+
+pub fn normalize(vec: &Matrix) -> Matrix {
+    let mag = magnitude(vec);
+    assert!(mag != 0.0, "Cannot normalize a zero vector");
+
+    scalar_mul(vec, 1.0 / mag)
+}
+
+pub fn cross(a: &Matrix, b: &Matrix) -> Matrix {
+    assert_eq!(a.rows * a.cols, 3, "Cross product requires 3D vectors");
+    assert_eq!(b.rows * b.cols, 3, "Cross product requires 3D vectors");
+
+    let x1 = a.get(0, 0);
+    let y1 = a.get(1, 0);
+    let z1 = a.get(2, 0);
+
+    let x2 = b.get(0, 0);
+    let y2 = b.get(1, 0);
+    let z2 = b.get(2, 0);
+
+    Matrix::new(
+        3,
+        1,
+        vec![y1 * z2 - z1 * y2, z1 * x2 - x1 * z2, x1 * y2 - y1 * x2],
+    )
+}
+
+pub fn projection(a: &Matrix, b: &Matrix) -> Matrix {
+    let dot_product = dot(a, b);
+    let mag_b_sq = dot(b, b);
+    assert!(mag_b_sq != 0.0, "Cannot project onto a zero vector");
+
+    scalar_mul(b, dot_product / mag_b_sq)
+}
+
+pub fn angle(a: &Matrix, b: &Matrix) -> f64 {
+    let dot_product = dot(a, b);
+    let mag_a = magnitude(a);
+    let mag_b = magnitude(b);
+
+    assert!(
+        mag_a != 0.0 && mag_b != 0.0,
+        "Cannot compute angle with zero vector"
+    );
+
+    (dot_product / (mag_a * mag_b)).acos()
+}

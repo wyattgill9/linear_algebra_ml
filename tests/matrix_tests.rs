@@ -259,19 +259,62 @@ fn test_matrix_det() {
     assert_eq!(result, -2.0);
 }
 
-// #[test] todo();
-// fn test_matrix_inv() {
-//     let a = Matrix::new(2, 2, vec![
-//         1.0, 2.0,  
-//         3.0, 4.0   
-//     ]);
 
-//     let result = ops::inverse(&a).unwrap();
+/* VECTOR TESTS */
 
-//     let expected = Matrix::new(2, 2, vec![
-//         -2.0, 1.0,  
-//         1.5, -0.5   
-//     ]);
+#[test]
+fn test_vector_dot() {
+    let a = Matrix::new(2, 1, vec![
+        1.0,  
+        2.0   
+    ]);
 
-//     assert_eq!(result, expected);
-// }
+    let b = Matrix::new(1, 2, vec![
+        3.0, 4.0   
+    ]);
+
+    let result = ops::dot(&a, &b);
+
+    assert_eq!(result, 11.0);
+}
+
+#[test]
+fn test_vec_dot_product() {
+    let a = Matrix::new(1, 3, vec![1.0, 2.0, 3.0]);
+    let b = Matrix::new(3, 1, vec![4.0, 5.0, 6.0]);
+    assert_eq!(ops::dot(&a, &b), 32.0);
+}
+
+#[test]
+fn test_cross_product() {
+    let a = Matrix::new(3, 1, vec![1.0, 2.0, 3.0]);
+    let b = Matrix::new(3, 1, vec![4.0, 5.0, 6.0]);
+    let expected = Matrix::new(3, 1, vec![-3.0, 6.0, -3.0]);
+    assert_eq!(ops::cross(&a, &b), expected);
+}
+
+#[test]
+fn test_projection() {
+    let a = Matrix::new(1, 3, vec![3.0, 4.0, 0.0]);
+    let b = Matrix::new(1, 3, vec![6.0, 8.0, 0.0]); 
+    let expected = Matrix::new(1, 3, vec![3.0, 4.0, 0.0]);
+    assert_eq!(ops::projection(&a, &b), expected);
+}
+
+#[test]
+fn test_normalize() {
+    let a = Matrix::new(1, 2, vec![3.0, 4.0]);
+    let normalized = ops::normalize(&a);
+    let expected = Matrix::new(1, 2, vec![0.6, 0.8]);
+    for i in 0..normalized.data.len() {
+        assert!((normalized.data[i] - expected.data[i]).abs() < 1e-6);
+    }
+}
+
+#[test]
+fn test_angle_between_vectors() {
+    let a = Matrix::new(1, 3, vec![1.0, 0.0, 0.0]); 
+    let b = Matrix::new(1, 3, vec![0.0, 1.0, 0.0]); 
+    let angle = ops::angle(&a, &b);
+    assert!((angle - std::f64::consts::FRAC_PI_2).abs() < 1e-6); 
+}

@@ -2,7 +2,6 @@
 
 use linear_algebra_ml::Matrix;
 use linear_algebra_ml::matrix::matrix::Matrix;
-use linear_algebra_ml::matrix::*;
 use linear_algebra_ml::sparse_to_dense;
 
 #[test]
